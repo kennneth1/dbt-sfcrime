@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with staged as (
     select
         *,
@@ -8,7 +10,7 @@ with staged as (
             date_trunc('day', incident_datetime + (6 - extract(dow from incident_datetime)) * interval '1 day'),
             'Week ending YYYY-MM-DD'
         ) as week_label
-    from {{ ref('staged') }}  -- assuming your staged.csv is loaded as a DBT source/table
+    from {{ ref('sf_crime_staging') }}  -- assuming your staged.csv is loaded as a DBT source/table
 ),
 
 -- Weekly intersection aggregates
