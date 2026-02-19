@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: staging
+    description: "Staging table for SF crime incidents, cleaned and deduplicated"
+    columns:
+      - name: incidentNumber
+        description: "Unique ID per incident"
+        tests:
+          - not_null
+          - unique
+      - name: district
+        description: "police district per incident"
+        tests:
+          - not_null
+      - name: neighborhood
+        description: "neighborhood per incident"
+        tests:
+          - not_null
+      - name: latitude
+        description: "latitude per incident"
+        tests:
+          - not_null
+      - name: longitude
+        description: "longitude per incident"
+        tests:
+          - not_null
+      - name: incidentCategory
+        description: "Canonical crime category"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Homicide
+                - Rape
+                - Robbery
+                - Human Trafficking
+                - Assault
+                - Prostitution
+                - Offences Against the Family and Children
+                - Arson
+                - Burglary
+                - Motor Vehicle Theft
+                - Larceny Theft
+                - Stolen Property
+                - Malicious Mischief
+                - Vandalism
+                - Fraud
+                - Embezzlement
+                - Forgery and Counterfeiting
+                - Drug Offense
+                - Weapons Carrying
+                - Weapons Offense
+
+      - name: incidentDatetime
+        description: "Timestamp of incident"
+        tests:
+          - not_null

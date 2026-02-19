@@ -1,0 +1,21 @@
+# DBT artifacts
+target/
+dbt_modules/
+logs/
+
+*.duckdb
+*.db
+
+dbt_venv/
+venv/
+__pycache__/
+*.pyc
+
+profiles.yml
+
+.DS_Store
+Thumbs.db
+*.csv
+
+.vscode/
+.idea/
