@@ -8,13 +8,13 @@ with staged as (
             'day',
             incidentDatetime + (6 - extract(dow from incidentDatetime)) * interval '1 day'
         ) as weekEnding,
-        -- label for dropdowns/filters
-        to_char(
+        -- label for dropdowns/filters (DuckDB compatible)
+        'Week ending ' || strftime(
             date_trunc(
                 'day',
                 incidentDatetime + (6 - extract(dow from incidentDatetime)) * interval '1 day'
             ),
-            'Week ending YYYY-MM-DD'
+            '%Y-%m-%d'
         ) as weekLabel
     from {{ ref('sf_crime_staging') }}
 ),
@@ -87,7 +87,6 @@ select
     wd.district7dTtl,
     wn.neighborhood7dTtl,
     dc.dominantCategory7d,
-    s.weekLabel
 from staged s
 left join weeklyIntersection wi
     on s.intersection = wi.intersection
@@ -95,7 +94,7 @@ left join weeklyIntersection wi
 left join weeklyDistrict wd
     on s.district = wd.district
     and s.weekEnding = wd.weekEnding
-left join neighborhood wn
+left join weeklyNeighborhood wn
     on s.neighborhood = wn.neighborhood
     and s.weekEnding = wn.weekEnding
 left join dominantCategory dc
