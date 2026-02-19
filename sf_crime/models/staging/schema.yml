@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: staging
+  - name: sf_crime_staging
     description: "Staging table for SF crime incidents, cleaned and deduplicated"
     columns:
       - name: incidentNumber
