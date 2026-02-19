@@ -61,7 +61,7 @@ category_map as (
             when incidentCategoryNorm = 'embezzlement' then 'Embezzlement'
             when incidentCategoryNorm = 'forgery and counterfeiting' then 'Forgery and Counterfeiting'
             when incidentCategoryNorm = 'drug offense' then 'Drug Offense'
-            else incidentCategoryRaw  -- fallback to original value if unrecognized
+            else incidentCategoryRaw
         end as incidentCategory
     from clean_category
 ),
