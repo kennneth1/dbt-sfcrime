@@ -4,12 +4,9 @@ with staged as (
     select
         *,
         -- compute month ending (last day of the month)
-        date_trunc('month', incidentDatetime) + interval '1 month - 1 day' as monthEnding,
+        last_day(incidentDatetime) as monthEnding,
         -- label for filters/dropdowns
-        'Month ending ' || strftime(
-            date_trunc('month', incidentDatetime) + interval '1 month - 1 day',
-            '%Y-%m-%d'
-        ) as monthLabel
+        'Month ending ' || strftime(last_day(incidentDatetime), '%Y-%m-%d') as monthLabel
     from {{ ref('sf_crime_staging') }}
 ),
 
@@ -52,4 +49,4 @@ select
     crimeType,
     count
 from monthlyMart
-order by monthEnding, district, crimeType;
+order by monthEnding, district, crimeType
