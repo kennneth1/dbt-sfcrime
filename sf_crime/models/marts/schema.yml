@@ -60,7 +60,7 @@ models:
         description: "Police district (or 'All SF' for city-wide totals)"
         tests:
           - not_null
-      - name: incidentCategory
+      - name: crimeType
         description: "Broad category of incident"
         tests:
           - not_null

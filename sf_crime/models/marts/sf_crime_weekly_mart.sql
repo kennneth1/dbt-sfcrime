@@ -1,6 +1,16 @@
-{{ config(materialized='table') }}
+{{ config(
+    materialized='incremental',
+    unique_key='weekEnding'  -- each weekEnding row is unique
+) }}
 
-with staged as (
+with source as (
+    select *
+    from {{ ref('sf_crime_staging') }}
+    {% if is_incremental() %}
+        where weekEnding >= (select max(weekEnding) from {{ this }})
+    {% endif %}
+),
+staged as (
     select
         *,
         -- compute the week ending (Saturday)
@@ -16,7 +26,7 @@ with staged as (
             ),
             '%Y-%m-%d'
         ) as weekLabel
-    from {{ ref('sf_crime_staging') }}
+    from source
 ),
 
 -- Weekly intersection aggregates
