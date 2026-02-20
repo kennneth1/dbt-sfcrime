@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: sf_crime_weekly_mart
+    description: "Aggregated weekly SF crime data for dashboards"
+    columns:
+      - name: weekEnding
+        description: "Saturday ending date for the week"
+        tests:
+          - not_null
+      - name: intersection
+        description: "Intersection name"
+        tests:
+          - not_null
+      - name: intersection7DayTtl
+        description: "Total incidents at intersection in the week"
+        tests:
+          - not_null
+      - name: intersection7DayAvg
+        description: "Average incidents per day at intersection"
+        tests:
+          - not_null
+      - name: district
+        description: "Police district"
+        tests:
+          - not_null
+      - name: district7dTtl
+        description: "Total incidents per district in the week"
+        tests:
+          - not_null
+      - name: neighborhood
+        description: "Neighborhood"
+        tests:
+          - not_null
+      - name: neighborhood7dTtl
+        description: "Total incidents per neighborhood in the week"
+        tests:
+          - not_null
+      - name: dominantCategory7d
+        description: "Most frequent incident category per intersection/week"
+        tests:
+          - not_null
+      - name: weekLabel
+        description: "Human-readable label for filtering: 'Week ending YYYY-MM-DD'"
+        tests:
+          - not_null
+
+  - name: sf_crime_monthly_mart
+    description: "Aggregated monthly SF crime data for dashboards"
+    columns:
+      - name: monthEnding
+        description: "Last day of the month for aggregation"
+        tests:
+          - not_null
+      - name: monthLabel
+        description: "Human-readable label for filtering: 'Month ending YYYY-MM-DD'"
+        tests:
+          - not_null
+      - name: district
+        description: "Police district (or 'All SF' for city-wide totals)"
+        tests:
+          - not_null
+      - name: incidentCategory
+        description: "Broad category of incident"
+        tests:
+          - not_null
+      - name: count
+        description: "Number of incidents per crime type and district/month"
+        tests:
+          - not_null
